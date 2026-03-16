@@ -1,60 +1,96 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
+const TOTAL_FRAMES = 61;
 
 export default function ScrollVideo() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const [loaded, setLoaded] = useState(false);
 
+  // Preload all frames
   useEffect(() => {
-    const video = videoRef.current;
+    let loadedCount = 0;
+    const images: HTMLImageElement[] = [];
+
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      const num = String(i).padStart(3, "0");
+      img.src = `${basePath}/images/frames/frame-${num}.jpg`;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === TOTAL_FRAMES) {
+          setLoaded(true);
+        }
+      };
+      images.push(img);
+    }
+
+    imagesRef.current = images;
+  }, []);
+
+  // Draw frames based on scroll position
+  useEffect(() => {
+    if (!loaded) return;
+
+    const canvas = canvasRef.current;
     const container = containerRef.current;
-    if (!video || !container) return;
+    if (!canvas || !container) return;
 
-    // Wait for video metadata to load
-    const onLoaded = () => {
-      const duration = video.duration;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-      const onScroll = () => {
+    // Set canvas dimensions from first frame
+    const firstImage = imagesRef.current[0];
+    canvas.width = firstImage.naturalWidth;
+    canvas.height = firstImage.naturalHeight;
+
+    // Draw first frame immediately
+    ctx.drawImage(firstImage, 0, 0);
+
+    let rafId: number;
+
+    const onScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
         const rect = container.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const containerHeight = rect.height;
-
-        // Calculate scroll progress through the container
-        // 0 = container just entered viewport from bottom
-        // 1 = container has left viewport at top
         const totalTravel = windowHeight + containerHeight;
         const traveled = windowHeight - rect.top;
         const progress = Math.max(0, Math.min(1, traveled / totalTravel));
 
-        // Map scroll progress to video time
-        video.currentTime = progress * duration;
-      };
+        const frameIndex = Math.min(
+          TOTAL_FRAMES - 1,
+          Math.floor(progress * TOTAL_FRAMES)
+        );
 
-      window.addEventListener("scroll", onScroll, { passive: true });
-      onScroll(); // Set initial frame
-
-      return () => window.removeEventListener("scroll", onScroll);
+        const img = imagesRef.current[frameIndex];
+        if (img) {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+        }
+      });
     };
 
-    if (video.readyState >= 1) {
-      const cleanup = onLoaded();
-      return cleanup;
-    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
 
-    video.addEventListener("loadedmetadata", onLoaded, { once: true });
-    return () => video.removeEventListener("loadedmetadata", onLoaded);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [loaded]);
 
   return (
     <section className="relative bg-white">
       <div ref={containerRef} className="relative h-[250vh]">
-        {/* Sticky video container */}
         <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
-          {/* Text overlay top */}
+          {/* Text overlay */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -71,15 +107,18 @@ export default function ScrollVideo() {
             </h2>
           </motion.div>
 
-          {/* Video */}
-          <video
-            ref={videoRef}
-            src={`${basePath}/images/truck-scroll.mp4`}
-            muted
-            playsInline
-            preload="auto"
+          {/* Canvas for frame rendering */}
+          <canvas
+            ref={canvasRef}
             className="h-auto w-full max-w-4xl object-contain px-4"
           />
+
+          {/* Loading state */}
+          {!loaded && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+            </div>
+          )}
         </div>
       </div>
     </section>
