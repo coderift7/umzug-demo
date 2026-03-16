@@ -11,11 +11,19 @@ export default function Hero() {
 
   return (
     <section className="grain relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-primary">
-      {/* Gradient mesh background */}
+      {/* Background photo */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(37,99,235,0.3),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(249,115,22,0.12),transparent)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/40 to-primary" />
+        <img
+          src="/umzug-demo/images/hero-bg.jpg"
+          alt=""
+          className="h-full w-full object-cover"
+        />
+        {/* Dark overlay for text contrast */}
+        <div className="absolute inset-0 bg-primary/75" />
+        {/* Gradient mesh on top of photo */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(37,99,235,0.25),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(249,115,22,0.1),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/30 via-transparent to-primary/60" />
       </div>
 
       {/* Geometric accent lines */}
