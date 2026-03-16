@@ -4,6 +4,8 @@ import { ArrowRight, ChevronDown, Star, Shield, TrendingUp, CheckCircle2 } from 
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 
+const basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
+
 const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Hero() {
@@ -13,9 +15,10 @@ export default function Hero() {
     <section className="grain relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-primary">
       {/* Background photo */}
       <div className="absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/umzug-demo/images/hero-bg.jpg"
-          alt=""
+          src={`${basePath}/images/hero-bg.jpg`}
+          alt="Umzugsszene mit Umzugswagen"
           className="h-full w-full object-cover"
         />
         {/* Dark overlay for text contrast */}
