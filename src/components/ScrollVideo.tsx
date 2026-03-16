@@ -6,97 +6,79 @@ import { motion } from "framer-motion";
 const basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
 const TOTAL_FRAMES = 61;
 
+function getFrameSrc(index: number) {
+  const num = String(Math.max(1, Math.min(TOTAL_FRAMES, index))).padStart(3, "0");
+  return `${basePath}/images/frames/frame-${num}.jpg`;
+}
+
 export default function ScrollVideo() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const imagesRef = useRef<HTMLImageElement[]>([]);
-  const [loaded, setLoaded] = useState(false);
+  const [currentFrame, setCurrentFrame] = useState(1);
+  const [preloaded, setPreloaded] = useState(false);
 
   // Preload all frames
   useEffect(() => {
-    let loadedCount = 0;
-    const images: HTMLImageElement[] = [];
-
+    let count = 0;
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
-      const img = new Image();
-      const num = String(i).padStart(3, "0");
-      img.src = `${basePath}/images/frames/frame-${num}.jpg`;
+      const img = new window.Image();
+      img.src = getFrameSrc(i);
       img.onload = () => {
-        loadedCount++;
-        if (loadedCount === TOTAL_FRAMES) {
-          setLoaded(true);
-        }
+        count++;
+        if (count >= TOTAL_FRAMES) setPreloaded(true);
       };
-      images.push(img);
+      img.onerror = () => {
+        count++;
+        if (count >= TOTAL_FRAMES) setPreloaded(true);
+      };
     }
-
-    imagesRef.current = images;
   }, []);
 
-  // Draw frames based on scroll position
+  // Update frame on scroll
   useEffect(() => {
-    if (!loaded) return;
-
-    const canvas = canvasRef.current;
     const container = containerRef.current;
-    if (!canvas || !container) return;
+    if (!container) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Set canvas dimensions from first frame
-    const firstImage = imagesRef.current[0];
-    canvas.width = firstImage.naturalWidth;
-    canvas.height = firstImage.naturalHeight;
-
-    // Draw first frame immediately
-    ctx.drawImage(firstImage, 0, 0);
-
-    let rafId: number;
+    let ticking = false;
 
     const onScroll = () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
         const rect = container.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const containerHeight = rect.height;
         const totalTravel = windowHeight + containerHeight;
         const traveled = windowHeight - rect.top;
         const progress = Math.max(0, Math.min(1, traveled / totalTravel));
+        const frame = Math.max(1, Math.min(TOTAL_FRAMES, Math.ceil(progress * TOTAL_FRAMES)));
 
-        const frameIndex = Math.min(
-          TOTAL_FRAMES - 1,
-          Math.floor(progress * TOTAL_FRAMES)
-        );
-
-        const img = imagesRef.current[frameIndex];
-        if (img) {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0);
-        }
+        setCurrentFrame(frame);
+        ticking = false;
       });
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("touchmove", onScroll, { passive: true });
     onScroll();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(rafId);
+      window.removeEventListener("touchmove", onScroll);
     };
-  }, [loaded]);
+  }, []);
 
   return (
     <section className="relative bg-white">
       <div ref={containerRef} className="relative h-[250vh]">
-        <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden">
+        <div className="sticky top-0 flex h-[100dvh] flex-col items-center justify-center overflow-hidden">
           {/* Text overlay */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-20 z-10 text-center lg:top-28"
+            className="absolute top-20 z-10 text-center px-4 lg:top-28"
           >
             <span className="text-sm font-semibold uppercase tracking-widest text-accent">
               Alles aus einer Hand
@@ -107,15 +89,19 @@ export default function ScrollVideo() {
             </h2>
           </motion.div>
 
-          {/* Canvas for frame rendering */}
-          <canvas
-            ref={canvasRef}
-            className="h-auto w-full max-w-4xl object-contain px-4"
+          {/* Frame image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={getFrameSrc(currentFrame)}
+            alt="Umzugswagen Animation — Möbel werden ein- und ausgepackt"
+            width={960}
+            height={537}
+            className="w-full max-w-4xl px-4"
           />
 
-          {/* Loading state */}
-          {!loaded && (
-            <div className="absolute inset-0 flex items-center justify-center">
+          {/* Loading spinner */}
+          {!preloaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-white/80">
               <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
             </div>
           )}
