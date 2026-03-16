@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Poppins, Open_Sans } from "next/font/google";
+import { Lexend, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 
-const poppins = Poppins({
+const lexend = Lexend({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
+  variable: "--font-lexend",
   display: "swap",
 });
 
-const openSans = Open_Sans({
+const sourceSans = Source_Sans_3({
   subsets: ["latin"],
-  variable: "--font-open-sans",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-source-sans",
   display: "swap",
 });
 
@@ -27,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de" className={`${poppins.variable} ${openSans.variable}`}>
+    <html lang="de" className={`${lexend.variable} ${sourceSans.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
   );

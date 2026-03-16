@@ -1,83 +1,131 @@
-import { ArrowRight, ChevronDown, Star, Shield, TrendingUp } from "lucide-react";
+"use client";
+
+import { ArrowRight, ChevronDown, Star, Shield, TrendingUp, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
+
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export default function Hero() {
   const { hero, trustStats } = siteConfig;
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-primary">
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/95 to-accent/30" />
+    <section className="grain relative flex min-h-[100dvh] items-center justify-center overflow-hidden bg-primary">
+      {/* Gradient mesh background */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(37,99,235,0.3),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(249,115,22,0.12),transparent)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/40 to-primary" />
+      </div>
 
-      {/* Subtle pattern */}
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, white 1px, transparent 1px)",
-          backgroundSize: "40px 40px",
-        }}
-      />
+      {/* Geometric accent lines */}
+      <div className="absolute left-0 top-1/4 h-px w-32 bg-gradient-to-r from-transparent via-accent/30 to-transparent lg:w-64" />
+      <div className="absolute right-0 bottom-1/3 h-px w-32 bg-gradient-to-l from-transparent via-cta/20 to-transparent lg:w-48" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 text-center sm:px-6 lg:px-8">
-        {/* Badge */}
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-sm">
-          <Shield className="h-4 w-4 text-accent" />
-          <span className="text-sm font-medium text-white/90">
-            Vollversichert & TÜV-geprüft
-          </span>
-        </div>
-
-        {/* Headline */}
-        <h1 className="font-heading text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-          {hero.headline}
-        </h1>
-
-        {/* Subheadline */}
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/80 sm:text-xl">
-          {hero.subheadline}
-        </p>
-
-        {/* CTAs */}
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-          <a
-            href="#kontakt"
-            className="group inline-flex items-center gap-2 rounded-lg bg-accent px-8 py-4 text-base font-semibold text-white shadow-lg shadow-accent/25 transition-all hover:bg-accent/90 hover:shadow-xl hover:shadow-accent/30"
+      <div className="relative z-10 mx-auto max-w-7xl px-5 py-32 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl text-center">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2, ease }}
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 backdrop-blur-md"
           >
-            {hero.cta1}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </a>
-          <a
-            href="#leistungen"
-            className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 px-8 py-4 text-base font-semibold text-white transition-all hover:border-white/60 hover:bg-white/10"
-          >
-            {hero.cta2}
-          </a>
-        </div>
+            <Shield className="h-4 w-4 text-cta" />
+            <span className="text-sm font-medium tracking-wide text-white/80">
+              Vollversichert & TÜV-geprüft
+            </span>
+          </motion.div>
 
-        {/* Trust micro-bar */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-          {trustStats.map((stat, i) => (
-            <div key={i} className="flex items-center gap-2 text-white/70">
-              {i === 0 && <TrendingUp className="h-4 w-4 text-accent" />}
-              {i === 3 && <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />}
-              <span className="text-sm font-medium">
-                <span className="font-bold text-white">{stat.value}</span>{" "}
-                {stat.label}
-              </span>
-            </div>
-          ))}
+          {/* Headline — editorial-style with weight contrast */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.35, ease }}
+            className="font-heading text-[2.75rem] font-bold leading-[1.08] tracking-tight text-white sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+          >
+            Ihr Umzug.{" "}
+            <span className="text-cta">Sicher.</span>
+            <br className="hidden sm:block" />{" "}
+            Schnell. Stressfrei.
+          </motion.h1>
+
+          {/* Subheadline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5, ease }}
+            className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/60 sm:text-xl"
+          >
+            {hero.subheadline}
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.65, ease }}
+            className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
+          >
+            <a
+              href="#kontakt"
+              className="group inline-flex cursor-pointer items-center gap-2.5 rounded-xl bg-cta px-8 py-4 text-base font-semibold text-white shadow-[0_4px_24px_rgba(249,115,22,0.35)] transition-all duration-200 hover:bg-cta/90 hover:shadow-[0_8px_32px_rgba(249,115,22,0.45)] hover:-translate-y-0.5"
+            >
+              {hero.cta1}
+              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
+            </a>
+            <a
+              href="#leistungen"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-white/15 px-8 py-4 text-base font-medium text-white/80 backdrop-blur-sm transition-all duration-200 hover:border-white/30 hover:bg-white/[0.06] hover:text-white"
+            >
+              {hero.cta2}
+            </a>
+          </motion.div>
+
+          {/* Trust micro-bar */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+            className="mx-auto mt-16 flex max-w-2xl flex-wrap items-center justify-center gap-x-8 gap-y-3"
+          >
+            {trustStats.map((stat, i) => (
+              <div key={i} className="flex items-center gap-2">
+                {i === 0 && <TrendingUp className="h-4 w-4 text-accent" />}
+                {i === 2 && (
+                  <CheckCircle2 className="h-4 w-4 text-green-400" />
+                )}
+                {i === 3 && (
+                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                )}
+                <span className="text-sm text-white/50">
+                  <span className="font-semibold text-white/80">
+                    {stat.value}
+                  </span>{" "}
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <a
+      <motion.a
         href="#trust"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-white/50 transition-colors hover:text-white"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 transition-colors hover:text-white/60"
         aria-label="Nach unten scrollen"
       >
-        <ChevronDown className="h-8 w-8" />
-      </a>
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronDown className="h-7 w-7" />
+        </motion.div>
+      </motion.a>
     </section>
   );
 }

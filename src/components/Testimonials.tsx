@@ -1,62 +1,77 @@
+"use client";
+
 import { Star, Quote } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { Reveal, StaggerContainer, StaggerItem } from "./Motion";
 
 export default function Testimonials() {
   return (
-    <section id="bewertungen" className="bg-background py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="bewertungen" className="relative overflow-hidden bg-muted py-24 lg:py-32">
+      {/* Subtle gradient accent */}
+      <div className="absolute left-0 top-0 h-full w-1/3 bg-gradient-to-r from-accent/[0.03] to-transparent" />
+
+      <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center">
-          <h2 className="font-heading text-3xl font-bold text-primary sm:text-4xl">
-            Das sagen unsere Kunden
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Über 500 zufriedene Kunden vertrauen uns. Lesen Sie, was sie über
-            ihre Erfahrung mit {siteConfig.company.name} sagen.
-          </p>
-        </div>
+        <Reveal>
+          <div className="max-w-xl">
+            <span className="text-sm font-semibold uppercase tracking-widest text-accent">
+              Kundenstimmen
+            </span>
+            <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl">
+              Das sagen unsere Kunden
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+              Über 500 zufriedene Kunden vertrauen {siteConfig.company.name}.
+            </p>
+          </div>
+        </Reveal>
 
         {/* Testimonial Cards */}
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <StaggerContainer
+          className="mt-14 grid gap-5 md:grid-cols-3"
+          staggerDelay={0.12}
+        >
           {siteConfig.testimonials.map((testimonial, i) => (
-            <div
-              key={i}
-              className="relative rounded-xl border border-border bg-card p-6 shadow-sm"
-            >
-              <Quote className="absolute right-6 top-6 h-8 w-8 text-accent/10" />
+            <StaggerItem key={i}>
+              <div className="group relative h-full rounded-2xl border border-border bg-card p-7 shadow-sm transition-shadow duration-300 hover:shadow-md">
+                {/* Accent line */}
+                <div className="absolute left-7 top-0 h-1 w-12 rounded-b-full bg-gradient-to-r from-accent to-accent/50" />
 
-              {/* Stars */}
-              <div className="mb-4 flex gap-0.5">
-                {Array.from({ length: testimonial.rating }).map((_, j) => (
-                  <Star
-                    key={j}
-                    className="h-5 w-5 fill-yellow-400 text-yellow-400"
-                  />
-                ))}
-              </div>
+                <Quote className="mb-4 h-8 w-8 text-accent/10" />
 
-              {/* Quote */}
-              <p className="text-sm leading-relaxed text-secondary">
-                &ldquo;{testimonial.text}&rdquo;
-              </p>
-
-              {/* Author */}
-              <div className="mt-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-heading text-sm font-bold text-accent">
-                  {testimonial.name.charAt(0)}
+                {/* Stars */}
+                <div className="mb-4 flex gap-0.5">
+                  {Array.from({ length: testimonial.rating }).map((_, j) => (
+                    <Star
+                      key={j}
+                      className="h-4 w-4 fill-amber-400 text-amber-400"
+                    />
+                  ))}
                 </div>
-                <div>
-                  <div className="text-sm font-semibold text-primary">
-                    {testimonial.name}
+
+                {/* Quote */}
+                <p className="text-[15px] leading-relaxed text-card-foreground">
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+
+                {/* Author */}
+                <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent/70 font-heading text-sm font-bold text-white">
+                    {testimonial.name.charAt(0)}
                   </div>
-                  <div className="text-xs text-muted-foreground">
-                    {testimonial.location}
+                  <div>
+                    <div className="text-sm font-semibold text-primary">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {testimonial.location}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );
