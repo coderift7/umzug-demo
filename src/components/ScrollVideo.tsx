@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 
 const basePath = process.env.__NEXT_ROUTER_BASEPATH || "";
-const TOTAL_FRAMES = 61;
+const TOTAL_FRAMES = 121;
 
 function getFrameSrc(index: number) {
   const num = String(Math.max(1, Math.min(TOTAL_FRAMES, index))).padStart(3, "0");
@@ -13,59 +13,65 @@ function getFrameSrc(index: number) {
 
 export default function ScrollVideo() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const frameRef = useRef(1);
   const imgRef = useRef<HTMLImageElement>(null);
+  const frameRef = useRef(1);
+  const cacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
 
-  // Preload frames in background (non-blocking)
+  // Aggressively preload ALL frames into memory on mount
   useEffect(() => {
+    const cache = cacheRef.current;
     for (let i = 1; i <= TOTAL_FRAMES; i++) {
-      const link = document.createElement("link");
-      link.rel = "prefetch";
-      link.href = getFrameSrc(i);
-      link.as = "image";
-      document.head.appendChild(link);
+      const img = new window.Image();
+      img.decoding = "async";
+      img.src = getFrameSrc(i);
+      cache.set(i, img);
     }
   }, []);
 
-  // Update frame on scroll
-  useEffect(() => {
+  const updateFrame = useCallback(() => {
     const container = containerRef.current;
     const img = imgRef.current;
     if (!container || !img) return;
 
-    let ticking = false;
+    const rect = container.getBoundingClientRect();
+    const wh = window.innerHeight;
+    const total = wh + rect.height;
+    const traveled = wh - rect.top;
+    const progress = Math.max(0, Math.min(1, traveled / total));
+    const frame = Math.max(1, Math.min(TOTAL_FRAMES, Math.ceil(progress * TOTAL_FRAMES)));
 
-    const update = () => {
-      const rect = container.getBoundingClientRect();
-      const wh = window.innerHeight;
-      const total = wh + rect.height;
-      const traveled = wh - rect.top;
-      const progress = Math.max(0, Math.min(1, traveled / total));
-      const frame = Math.max(1, Math.min(TOTAL_FRAMES, Math.ceil(progress * TOTAL_FRAMES)));
-
-      if (frame !== frameRef.current) {
-        frameRef.current = frame;
+    if (frame !== frameRef.current) {
+      frameRef.current = frame;
+      // Use cached image if loaded, otherwise set src directly
+      const cached = cacheRef.current.get(frame);
+      if (cached && cached.complete) {
+        img.src = cached.src;
+      } else {
         img.src = getFrameSrc(frame);
       }
-      ticking = false;
-    };
+    }
+  }, []);
+
+  useEffect(() => {
+    let rafId: number;
 
     const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(update);
-      }
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateFrame);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    update();
+    updateFrame();
 
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, [updateFrame]);
 
   return (
     <section className="relative bg-white">
-      <div ref={containerRef} className="relative h-[250vh]">
+      <div ref={containerRef} className="relative h-[300vh]">
         <div className="sticky top-0 flex h-[100dvh] flex-col items-center justify-center overflow-hidden">
           {/* Text overlay */}
           <motion.div
@@ -84,7 +90,6 @@ export default function ScrollVideo() {
             </h2>
           </motion.div>
 
-          {/* Frame image — always visible, no loading gate */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={imgRef}
