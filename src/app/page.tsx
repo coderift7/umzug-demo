@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import TrustSignals from "@/components/TrustSignals";
+import ScrollVideo from "@/components/ScrollVideo";
 import Services from "@/components/Services";
 import About from "@/components/About";
 import Testimonials from "@/components/Testimonials";
@@ -16,6 +17,7 @@ export default function Home() {
       <main>
         <Hero />
         <TrustSignals />
+        <ScrollVideo />
         <Services />
         <About />
         <Testimonials />
