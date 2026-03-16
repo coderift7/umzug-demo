@@ -7,7 +7,6 @@ import {
   Wrench,
   Package,
   Warehouse,
-  ArrowUpRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
@@ -52,7 +51,7 @@ export default function Services() {
                 <motion.div
                   whileHover={{ y: -4 }}
                   transition={{ duration: 0.2 }}
-                  className={`group relative cursor-pointer overflow-hidden rounded-2xl border border-border bg-card p-7 transition-shadow duration-300 hover:shadow-lg ${
+                  className={`group relative overflow-hidden rounded-2xl border border-border bg-card p-7 transition-shadow duration-300 hover:shadow-lg ${
                     isLarge ? "sm:col-span-1 lg:row-span-1" : ""
                   }`}
                 >
@@ -68,10 +67,6 @@ export default function Services() {
                   <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                     {service.description}
                   </p>
-                  <div className="mt-4 flex items-center gap-1 text-sm font-medium text-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                    Mehr erfahren
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </div>
                 </motion.div>
               </StaggerItem>
             );
