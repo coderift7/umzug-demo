@@ -62,6 +62,24 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${lexend.variable} ${sourceSans.variable}`}>
       <head>
+        {/* FAQ Schema – für KI-Chatbots und Google Featured Snippets */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: siteConfig.faq.map((item) => ({
+                "@type": "Question",
+                name: item.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: item.answer,
+                },
+              })),
+            }),
+          }}
+        />
         {/* Lokales Unternehmen – JSON-LD Schema Markup */}
         <script
           type="application/ld+json"

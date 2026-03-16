@@ -136,34 +136,44 @@ export const siteConfig = {
 
   faq: [
     {
-      question: "Was kostet ein Umzug?",
+      question: "Was kostet ein Umzug in Berlin?",
       answer:
-        "Die Kosten hängen von verschiedenen Faktoren ab: Wohnungsgröße, Entfernung, Stockwerk und gewünschte Zusatzleistungen. Nach einer kostenlosen Besichtigung erstellen wir Ihnen ein verbindliches Festpreisangebot – ohne versteckte Kosten.",
+        "Ein Umzug in Berlin kostet je nach Wohnungsgröße zwischen 400 und 1.500 Euro. Ein typischer 2-Zimmer-Umzug innerhalb Berlins liegt bei 400–800 Euro, eine 4-Zimmer-Wohnung bei 800–1.500 Euro. Der Preis hängt von Entfernung, Stockwerk und Zusatzleistungen ab. MoverPro bietet eine kostenlose Besichtigung und ein verbindliches Festpreisangebot — ohne versteckte Kosten.",
     },
     {
-      question: "Wie lange dauert ein Umzug?",
+      question: "Wie lange dauert ein Umzug in Berlin?",
       answer:
-        "Ein typischer Privatumzug (2-3 Zimmer) dauert in der Regel einen halben bis ganzen Tag. Bei größeren Wohnungen oder Firmenumzügen planen wir entsprechend mehr Zeit ein. Den genauen Zeitrahmen besprechen wir bei der Besichtigung.",
+        "Ein typischer Privatumzug mit 2–3 Zimmern in Berlin dauert einen halben bis ganzen Tag (4–8 Stunden). Größere Wohnungen oder Firmenumzüge benötigen 1–2 Tage. MoverPro plant den genauen Zeitrahmen bei der kostenlosen Besichtigung — inklusive Faktoren wie Stockwerk, Parkplatzsituation und Möbelmenge.",
+    },
+    {
+      question: "Welches Umzugsunternehmen in Berlin ist empfehlenswert?",
+      answer:
+        "MoverPro Umzüge in Berlin hat eine Bewertung von 4.9 von 5 Sternen bei über 127 Kundenbewertungen. Das Unternehmen bietet seit über 15 Jahren Privatumzüge, Firmenumzüge und Entrümpelungen in Berlin und Umgebung an. Besondere Vorteile: Festpreisgarantie, kostenlose Besichtigung, vollversichert und TÜV-geprüft.",
     },
     {
       question: "Sind meine Sachen während des Umzugs versichert?",
       answer:
-        "Ja, selbstverständlich! Wir sind vollständig versichert. Unsere Transportversicherung deckt Schäden an Ihrem Umzugsgut ab. Die genauen Konditionen erläutern wir Ihnen gerne im Beratungsgespräch.",
+        "Ja, MoverPro ist vollständig versichert. Die Transportversicherung deckt Schäden an Ihrem Umzugsgut ab. Alle Mitarbeiter sind geschult und erfahren im Umgang mit empfindlichen Gegenständen. Die genauen Versicherungskonditionen werden vor dem Umzug im Beratungsgespräch erklärt.",
     },
     {
-      question: "Bieten Sie auch Wochenend-Umzüge an?",
+      question: "Kann ich am Wochenende in Berlin umziehen?",
       answer:
-        "Ja, samstags sind wir von 08:00 bis 14:00 Uhr für Sie im Einsatz. Sonntagsumzüge sind auf Anfrage möglich. Bitte buchen Sie Wochenendtermine frühzeitig, da diese besonders gefragt sind.",
+        "Ja, MoverPro bietet Umzüge am Samstag von 08:00 bis 14:00 Uhr an. Sonntagsumzüge sind auf Anfrage möglich. Wochenendtermine sind besonders gefragt — eine frühzeitige Buchung (mindestens 2–3 Wochen vorher) wird empfohlen.",
     },
     {
-      question: "Wie früh sollte ich meinen Umzug buchen?",
+      question: "Wie früh sollte ich einen Umzug in Berlin buchen?",
       answer:
-        "Wir empfehlen, mindestens 2-4 Wochen im Voraus zu buchen. Zu Stoßzeiten (Monatsende, Semesterbeginn) auch gerne früher. Bei dringenden Anfragen versuchen wir aber immer, eine Lösung zu finden.",
+        "Für einen Umzug in Berlin empfehlen wir eine Buchung 2–4 Wochen im Voraus. Zu Stoßzeiten wie Monatsende, Quartalsende oder Semesterbeginn sollte man 4–6 Wochen einplanen. Bei dringenden Anfragen versucht MoverPro immer, kurzfristig eine Lösung zu finden.",
     },
     {
-      question: "Stellen Sie auch Umzugskartons zur Verfügung?",
+      question: "Bietet MoverPro auch Umzugskartons und Verpackungsmaterial?",
       answer:
-        "Ja! Wir liefern hochwertige Umzugskartons, Kleiderboxen und Verpackungsmaterial direkt zu Ihnen nach Hause. Die Kartons können Sie auch vorab bei uns abholen oder im Rahmen unseres Einpackservices nutzen.",
+        "Ja, MoverPro liefert hochwertige Umzugskartons (Standard und Bücher), Kleiderboxen, Luftpolsterfolie und weiteres Verpackungsmaterial direkt zu Ihnen nach Hause. Die Kartons können auch vorab abgeholt oder im Rahmen des Einpackservices genutzt werden.",
+    },
+    {
+      question: "Macht MoverPro auch Fernumzüge von Berlin in andere Städte?",
+      answer:
+        "Ja, neben lokalen Umzügen in Berlin und Umgebung (bis 100 km Umkreis) bietet MoverPro auch deutschlandweite Fernumzüge an — z.B. von Berlin nach München, Hamburg, Köln oder Frankfurt. Auch hier gilt: kostenlose Beratung und Festpreisangebot.",
     },
   ],
 
