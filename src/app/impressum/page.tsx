@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 import { siteConfig } from "@/config/site";
+
+export const metadata: Metadata = {
+  title: `Impressum – ${siteConfig.company.name}`,
+  description: `Impressum und Angaben gemäß § 5 TMG der ${siteConfig.company.legalName}.`,
+};
 
 export default function Impressum() {
   return (

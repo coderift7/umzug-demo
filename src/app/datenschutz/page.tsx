@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { ArrowLeft } from "lucide-react";
 import { siteConfig } from "@/config/site";
+
+export const metadata: Metadata = {
+  title: `Datenschutzerklärung – ${siteConfig.company.name}`,
+  description: `Datenschutzerklärung der ${siteConfig.company.legalName}. Informationen zur Verarbeitung personenbezogener Daten.`,
+};
 
 export default function Datenschutz() {
   return (
