@@ -94,18 +94,21 @@ export const siteConfig = {
       text: "Absolut professionell! Das Team war pünktlich, freundlich und hat unseren kompletten Umzug in nur einem Tag geschafft. Nichts ist zu Bruch gegangen. Klare Empfehlung!",
       name: "Sandra M.",
       location: "Berlin-Charlottenburg",
+      image: "/images/testimonial-sandra.png",
     },
     {
       rating: 5,
       text: "Wir haben MoverPro für unseren Büroumzug beauftragt. Alles lief reibungslos, am Montag konnten wir direkt weiterarbeiten. Top Service zum fairen Preis.",
       name: "Thomas K.",
       location: "Berlin-Mitte",
+      image: "/images/testimonial-thomas.png",
     },
     {
       rating: 5,
       text: "Die kostenlose Besichtigung vorab hat uns überzeugt. Der Festpreis wurde eingehalten, das Team war super nett. Würde jederzeit wieder buchen!",
       name: "Lisa & Jan W.",
       location: "Potsdam",
+      image: "/images/testimonial-lisa-jan.png",
     },
   ],
 
