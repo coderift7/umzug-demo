@@ -36,36 +36,42 @@ export const siteConfig = {
       title: "Privatumzug",
       description:
         "Kompletter Umzugsservice für Ihr Zuhause – von der Planung bis zum Einräumen.",
+      image: "/images/services/privatumzug.png",
     },
     {
       icon: "Building2",
       title: "Firmenumzug",
       description:
         "Büroumzüge mit minimaler Ausfallzeit. Professionell geplant, termingerecht ausgeführt.",
+      image: "/images/services/firmenumzug.png",
     },
     {
       icon: "Trash2",
       title: "Entrümpelung",
       description:
         "Professionelle Wohnungsauflösungen und Entrümpelungen – schnell und sauber.",
+      image: "/images/services/entruempelung.png",
     },
     {
       icon: "Wrench",
       title: "Möbelmontage",
       description:
         "Fachgerechter Auf- und Abbau Ihrer Möbel durch erfahrene Monteure.",
+      image: "/images/services/moebelmontage.png",
     },
     {
       icon: "Package",
       title: "Einpackservice",
       description:
         "Sicheres Verpacken Ihrer Habseligkeiten mit hochwertigen Materialien.",
+      image: "/images/services/einpackservice.png",
     },
     {
       icon: "Warehouse",
       title: "Lagerung",
       description:
         "Flexible Zwischenlagerung in sicheren, trockenen Lagerräumen.",
+      image: "/images/services/lagerung.png",
     },
   ],
 
