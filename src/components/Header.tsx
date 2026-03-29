@@ -34,9 +34,9 @@ export default function Header() {
             <Image
               src="/umzug-demo/images/logo-moverpro.png"
               alt={siteConfig.company.name}
-              width={160}
-              height={40}
-              className="h-10 w-auto object-contain"
+              width={450}
+              height={140}
+              className="h-8 w-auto object-contain lg:h-10"
               priority
             />
           </a>
