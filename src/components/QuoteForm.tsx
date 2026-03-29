@@ -227,7 +227,7 @@ export default function QuoteForm() {
                       <span className="text-xs leading-relaxed text-white/40">
                         Ich stimme der{" "}
                         <a
-                          href="/datenschutz"
+                          href="/umzug-demo/datenschutz"
                           className="text-accent underline decoration-accent/30 hover:decoration-accent/60"
                         >
                           Datenschutzerklärung

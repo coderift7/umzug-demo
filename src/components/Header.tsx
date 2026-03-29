@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Truck, Phone } from "lucide-react";
+import Image from "next/image";
+import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site";
 
@@ -29,23 +30,15 @@ export default function Header() {
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Logo */}
-          <a href="#" className="group flex items-center gap-2.5">
-            <div
-              className={`flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-300 ${
-                isScrolled
-                  ? "bg-accent text-white"
-                  : "bg-white/15 text-white backdrop-blur-sm"
-              }`}
-            >
-              <Truck className="h-5 w-5" />
-            </div>
-            <span
-              className={`font-heading text-lg font-bold tracking-tight transition-colors duration-300 ${
-                isScrolled ? "text-primary" : "text-white"
-              }`}
-            >
-              {siteConfig.company.name}
-            </span>
+          <a href="#" className="group flex items-center">
+            <Image
+              src="/umzug-demo/images/logo-moverpro.png"
+              alt={siteConfig.company.name}
+              width={160}
+              height={40}
+              className="h-10 w-auto object-contain"
+              priority
+            />
           </a>
 
           {/* Desktop Nav */}

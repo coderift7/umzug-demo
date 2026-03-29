@@ -1,6 +1,7 @@
 "use client";
 
-import { Truck, Phone, Mail, MapPin, Clock } from "lucide-react";
+import Image from "next/image";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 
@@ -14,13 +15,14 @@ export default function Footer() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Company */}
           <div>
-            <div className="mb-5 flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/15">
-                <Truck className="h-4 w-4 text-accent" />
-              </div>
-              <span className="font-heading text-lg font-bold tracking-tight">
-                {siteConfig.company.name}
-              </span>
+            <div className="mb-5">
+              <Image
+                src="/umzug-demo/images/logo-moverpro.png"
+                alt={siteConfig.company.name}
+                width={140}
+                height={35}
+                className="h-9 w-auto object-contain"
+              />
             </div>
             <p className="text-sm leading-relaxed text-white/45">
               {siteConfig.company.tagline} Ihr zuverlässiger Partner für
@@ -46,7 +48,7 @@ export default function Footer() {
               ))}
               <li>
                 <a
-                  href="/impressum"
+                  href="/umzug-demo/impressum"
                   className="text-sm text-white/50 transition-colors duration-200 hover:text-white"
                 >
                   Impressum
@@ -54,7 +56,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="/datenschutz"
+                  href="/umzug-demo/datenschutz"
                   className="text-sm text-white/50 transition-colors duration-200 hover:text-white"
                 >
                   Datenschutz
