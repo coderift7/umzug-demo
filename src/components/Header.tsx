@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { Menu, X, Phone } from "lucide-react";
+import Logo from "./Logo";
 import { motion, AnimatePresence } from "framer-motion";
 import { siteConfig } from "@/config/site";
 
@@ -31,13 +31,9 @@ export default function Header() {
         <div className="flex h-16 items-center justify-between lg:h-20">
           {/* Logo */}
           <a href="#" className="group flex items-center">
-            <Image
-              src="/umzug-demo/images/logo-moverpro.png"
-              alt={siteConfig.company.name}
-              width={450}
-              height={140}
-              className="h-8 w-auto object-contain lg:h-10"
-              priority
+            <Logo
+              className="h-8 w-auto lg:h-10"
+              isScrolled={isScrolled}
             />
           </a>
 

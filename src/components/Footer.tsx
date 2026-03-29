@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import Logo from "./Logo";
 import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 
@@ -16,13 +16,7 @@ export default function Footer() {
           {/* Company */}
           <div>
             <div className="mb-5">
-              <Image
-                src="/umzug-demo/images/logo-moverpro.png"
-                alt={siteConfig.company.name}
-                width={140}
-                height={35}
-                className="h-9 w-auto object-contain"
-              />
+              <Logo className="h-8 w-auto" />
             </div>
             <p className="text-sm leading-relaxed text-white/45">
               {siteConfig.company.tagline} Ihr zuverlässiger Partner für
